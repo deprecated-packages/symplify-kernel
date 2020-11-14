@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Symplify\SymplifyKernel\ValueObject;
@@ -9,6 +10,7 @@ use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SymplifyKernel\Exception\BootException;
 use Throwable;
 
@@ -20,13 +22,13 @@ final class KernelBootAndApplicationRun
     private $kernelClass;
 
     /**
-     * @var string[]
+     * @var string[]|SmartFileInfo[]
      */
     private $extraConfigs = [];
 
     /**
      * @param class-string $kernelClass
-     * @param string[] $extraConfigs
+     * @param string[]|SmartFileInfo[] $extraConfigs
      */
     public function __construct(string $kernelClass, array $extraConfigs = [])
     {
