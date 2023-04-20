@@ -33,7 +33,13 @@ abstract class AbstractSymplifyKernel implements LightKernelInterface
 
         $compilerPasses[] = new AutowireArrayParameterCompilerPass();
 
-        $configFiles[] = SymplifyKernelConfig::FILE_PATH;
+        // Always prepend default config files
+        $configFiles = array_merge(
+            [
+                SymplifyKernelConfig::FILE_PATH,
+            ],
+            $configFiles,
+        );
 
         $containerBuilder = $containerBuilderFactory->create($configFiles, $compilerPasses, $extensions);
         $containerBuilder->compile();
